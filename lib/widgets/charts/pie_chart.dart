@@ -1,3 +1,4 @@
+import 'package:climb_tracker/models/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
@@ -16,42 +17,42 @@ class Pie extends StatelessWidget {
             PieChartSectionData(
               title: 'green',
               value: 10,
-              color: Colors.green,
+              color: green,
             ),
             PieChartSectionData(
               title: 'yellow',
               value: 10.0,
-              color: Colors.yellow,
+              color: yellow,
             ),
             PieChartSectionData(
               title: 'orange',
               value: 10.0,
-              color: Colors.orange,
+              color: orange,
             ),
             PieChartSectionData(
               title: 'blue',
               value: 10.0,
-              color: Colors.blue,
+              color: blue,
             ),
             PieChartSectionData(
               title: 'red',
               value: 10.0,
-              color: Colors.red,
+              color: red,
             ),
             PieChartSectionData(
               title: 'purple',
               value: 10.0,
-              color: Colors.purple,
+              color: purple,
             ),
             PieChartSectionData(
               title: 'pink',
               value: 10.0,
-              color: Colors.pink,
+              color: pink,
             ),
             PieChartSectionData(
               title: 'grey',
               value: 10.0,
-              color: Colors.grey,
+              color: grey,
             ),
           ]
         ),

@@ -1,13 +1,13 @@
-import 'package:climb_tracker/models/session.dart';
 import 'package:flutter/material.dart';
+import 'package:climb_tracker/models/colors.dart';
+import 'package:climb_tracker/models/session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// TODO:
-// - need a date picker (limit dates to today and earlier)
-// - update to take in existing data to edit entries
-
 class EditMenu extends StatefulWidget {
-  const EditMenu({Key? key}) : super(key: key);
+  const EditMenu(this.index, this.session, {Key? key}) : super(key: key);
+
+  final int index;
+  final Session session;
 
   @override
   State<EditMenu> createState() => _EditMenuState();
@@ -15,19 +15,46 @@ class EditMenu extends StatefulWidget {
 
 class _EditMenuState extends State<EditMenu> {
 
-  Session today = Session(DateTime.now().toString().split(' ')[0]);
-
-  void saveDay() async {
+  void _saveDay() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString(today.getDate(), today.toString());
+      prefs.setString(widget.session.getDate().toString(), widget.session.toString());
     } finally {}
+  }
+
+  void _updateDate(BuildContext context) async {
+    DateTime? selected = await showDatePicker(
+      context: context,
+      firstDate: DateTime(2023, 5, 9),
+      lastDate: DateTime.now(),
+      initialDate: DateTime.now(),
+      helpText: '',
+      errorFormatText: 'Enter valid date',
+      errorInvalidText: 'Enter date in valid range',
+      builder:(context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.dark(
+              primary: darkTheme,
+              onSurface: lightTheme,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
+
+    if (selected != null) {
+      setState(() {
+        widget.session.setDate(selected);
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: const Color.fromARGB(255, 36, 36, 36),
+      backgroundColor: darkGrey,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -41,13 +68,15 @@ class _EditMenuState extends State<EditMenu> {
                   Row(
                     children: [
                       IconButton(
-                        onPressed: () => {saveDay()},
-                        icon: const Icon(Icons.calendar_month_outlined, color: Color.fromARGB(255, 184, 184, 184)),
+                        onPressed: () {
+                          _updateDate(context);
+                        },
+                        icon: Icon(Icons.calendar_month_outlined, color: offWhite),
                         iconSize: 32.0,
                       ),
                       Text(
-                        today.getDate(),
-                        style: const TextStyle(color: Color.fromARGB(255, 226, 226, 226), fontSize: 20.0),
+                        widget.session.getDateString(),
+                        style: TextStyle(color: offWhite, fontSize: 20.0),
                       ),
                     ],
                   ),
@@ -61,21 +90,21 @@ class _EditMenuState extends State<EditMenu> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {setState(() {today.removeGreen();});},
-                                icon: const Icon(
+                                onPressed: () {setState(() {widget.session.removeGreen();});},
+                                icon: Icon(
                                   Icons.remove_circle_outline_rounded,
-                                  color: Color.fromARGB(255, 184, 184, 184),
+                                  color: offWhite,
                                 ),
                               ),
                               SizedBox(
                                 width: 57.5,
                                 child: ElevatedButton(
-                                  onPressed: () {setState(() {today.addGreen();});},
+                                  onPressed: () {setState(() {widget.session.addGreen();});},
                                   style: ButtonStyle(
                                     foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                                    backgroundColor: WidgetStateProperty.all<Color>(Colors.green),
+                                    backgroundColor: WidgetStateProperty.all<Color>(green),
                                   ),
-                                  child: Text(today.getGreen().toString()),
+                                  child: Text(widget.session.getGreen().toString()),
                                 ),
                               ),
                             ],
@@ -87,21 +116,21 @@ class _EditMenuState extends State<EditMenu> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {setState(() {today.removeYellow();});},
-                                icon: const Icon(
+                                onPressed: () {setState(() {widget.session.removeYellow();});},
+                                icon: Icon(
                                   Icons.remove_circle_outline_rounded,
-                                  color: Color.fromARGB(255, 184, 184, 184),
+                                  color: offWhite,
                                 ),
                               ),
                               SizedBox(
                                 width: 57.5,
                                 child: ElevatedButton(
-                                  onPressed: () {setState(() {today.addYellow();});},
+                                  onPressed: () {setState(() {widget.session.addYellow();});},
                                   style: ButtonStyle(
                                     foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                                    backgroundColor: WidgetStateProperty.all<Color>(Colors.yellow),
+                                    backgroundColor: WidgetStateProperty.all<Color>(yellow),
                                   ),
-                                  child: Text(today.getYellow().toString()),
+                                  child: Text(widget.session.getYellow().toString()),
                                 ),
                               ),
                             ],
@@ -113,21 +142,21 @@ class _EditMenuState extends State<EditMenu> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {setState(() {today.removeOrange();});},
-                                icon: const Icon(
+                                onPressed: () {setState(() {widget.session.removeOrange();});},
+                                icon: Icon(
                                   Icons.remove_circle_outline_rounded,
-                                  color: Color.fromARGB(255, 184, 184, 184),
+                                  color: offWhite,
                                 ),
                               ),
                               SizedBox(
                                 width: 57.5,
                                 child: ElevatedButton(
-                                  onPressed: () {setState(() {today.addOrange();});},
+                                  onPressed: () {setState(() {widget.session.addOrange();});},
                                   style: ButtonStyle(
                                     foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                                    backgroundColor: WidgetStateProperty.all<Color>(Colors.orange),
+                                    backgroundColor: WidgetStateProperty.all<Color>(orange),
                                   ),
-                                  child: Text(today.getOrange().toString()),
+                                  child: Text(widget.session.getOrange().toString()),
                                 ),
                               ),
                             ],
@@ -139,21 +168,21 @@ class _EditMenuState extends State<EditMenu> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {setState(() {today.removeBlue();});},
-                                icon: const Icon(
+                                onPressed: () {setState(() {widget.session.removeBlue();});},
+                                icon: Icon(
                                   Icons.remove_circle_outline_rounded,
-                                  color: Color.fromARGB(255, 184, 184, 184),
+                                  color: offWhite,
                                 ),
                               ),
                               SizedBox(
                                 width: 57.5,
                                 child: ElevatedButton(
-                                  onPressed: () {setState(() {today.addBlue();});},
+                                  onPressed: () {setState(() {widget.session.addBlue();});},
                                   style: ButtonStyle(
                                     foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                                    backgroundColor: WidgetStateProperty.all<Color>(Colors.blue),
+                                    backgroundColor: WidgetStateProperty.all<Color>(blue),
                                   ),
-                                  child: Text(today.getBlue().toString()),
+                                  child: Text(widget.session.getBlue().toString()),
                                 ),
                               ),
                             ],
@@ -165,21 +194,21 @@ class _EditMenuState extends State<EditMenu> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {setState(() {today.removeRed();});},
-                                icon: const Icon(
+                                onPressed: () {setState(() {widget.session.removeRed();});},
+                                icon: Icon(
                                   Icons.remove_circle_outline_rounded,
-                                  color: Color.fromARGB(255, 184, 184, 184),
+                                  color: offWhite,
                                 ),
                               ),
                               SizedBox(
                                 width: 57.5,
                                 child: ElevatedButton(
-                                  onPressed: () {setState(() {today.addRed();});},
+                                  onPressed: () {setState(() {widget.session.addRed();});},
                                   style: ButtonStyle(
                                     foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                                    backgroundColor: WidgetStateProperty.all<Color>(Colors.red),
+                                    backgroundColor: WidgetStateProperty.all<Color>(red),
                                   ),
-                                  child: Text(today.getRed().toString()),
+                                  child: Text(widget.session.getRed().toString()),
                                 ),
                               ),
                             ],
@@ -191,21 +220,21 @@ class _EditMenuState extends State<EditMenu> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {setState(() {today.removePurple();});},
-                                icon: const Icon(
+                                onPressed: () {setState(() {widget.session.removePurple();});},
+                                icon: Icon(
                                   Icons.remove_circle_outline_rounded,
-                                  color: Color.fromARGB(255, 184, 184, 184),
+                                  color: offWhite,
                                 ),
                               ),
                               SizedBox(
                                 width: 57.5,
                                 child: ElevatedButton(
-                                  onPressed: () {setState(() {today.addPurple();});},
+                                  onPressed: () {setState(() {widget.session.addPurple();});},
                                   style: ButtonStyle(
                                     foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                                    backgroundColor: WidgetStateProperty.all<Color>(Colors.purple),
+                                    backgroundColor: WidgetStateProperty.all<Color>(purple),
                                   ),
-                                  child: Text(today.getPurple().toString()),
+                                  child: Text(widget.session.getPurple().toString()),
                                 ),
                               )
                             ],
@@ -217,21 +246,21 @@ class _EditMenuState extends State<EditMenu> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {setState(() {today.removePink();});},
-                                icon: const Icon(
+                                onPressed: () {setState(() {widget.session.removePink();});},
+                                icon: Icon(
                                   Icons.remove_circle_outline_rounded,
-                                  color: Color.fromARGB(255, 184, 184, 184),
+                                  color: offWhite,
                                 ),
                               ),
                               SizedBox(
                                 width: 57.5,
                                 child: ElevatedButton(
-                                  onPressed: () {setState(() {today.addPink();});},
+                                  onPressed: () {setState(() {widget.session.addPink();});},
                                   style: ButtonStyle(
                                     foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                                    backgroundColor: WidgetStateProperty.all<Color>(const Color.fromARGB(255, 255, 91, 255)),
+                                    backgroundColor: WidgetStateProperty.all<Color>(pink),
                                   ),
-                                  child: Text(today.getPink().toString()),
+                                  child: Text(widget.session.getPink().toString()),
                                 ),
                               )
                             ],
@@ -243,21 +272,21 @@ class _EditMenuState extends State<EditMenu> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: () {setState(() {today.removeGrey();});},
-                                icon: const Icon(
+                                onPressed: () {setState(() {widget.session.removeGrey();});},
+                                icon: Icon(
                                   Icons.remove_circle_outline_rounded,
-                                  color: Color.fromARGB(255, 184, 184, 184),
+                                  color: offWhite,
                                 ),
                               ),
                               SizedBox(
                                 width: 57.5,
                                 child: ElevatedButton(
-                                  onPressed: () {setState(() {today.addGrey();});},
+                                  onPressed: () {setState(() {widget.session.addGrey();});},
                                   style: ButtonStyle(
                                     foregroundColor: WidgetStateProperty.all<Color>(Colors.black),
-                                    backgroundColor: WidgetStateProperty.all<Color>(const Color.fromARGB(255, 219, 219, 219)),
+                                    backgroundColor: WidgetStateProperty.all<Color>(grey),
                                   ),
-                                  child: Text(today.getGrey().toString()),
+                                  child: Text(widget.session.getGrey().toString()),
                                 ),
                               )
                             ],
@@ -271,15 +300,13 @@ class _EditMenuState extends State<EditMenu> {
             ),
             TextButton(
               onPressed: () {
-                // TODO:
-                // update local storage
-                // include error handling popup
+                _saveDay();
                 Navigator.pop(context);
               },
-              child: const Text(
+              child: Text(
                 'Save',
                 style: TextStyle(
-                  color: Color.fromARGB(255, 38, 151, 93),
+                  color: lightTheme,
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold
                 ),

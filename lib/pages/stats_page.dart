@@ -20,8 +20,6 @@ class StatsPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Stats"),
-        foregroundColor: Colors.white,
-        backgroundColor: const Color.fromARGB(255, 11, 100, 54),
       ),
       body: const Padding(
         padding: EdgeInsets.all(8.0),

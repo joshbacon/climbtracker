@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class Session {
-  String date = "05-09-2023";
+  DateTime date = DateTime.now();
   int green = 0;
   int yellow = 0;
   int orange = 0;
@@ -11,11 +11,13 @@ class Session {
   int pink = 0;
   int grey = 0;
 
-  Session(this.date);
+  Session();
 
-  Session.fromString(String key, String data) {
-    date = key;
+  Session.fromString(String data) {
     var tokens = jsonDecode(data);
+    if (tokens['date'] != null){
+      date = DateTime.parse(tokens['date']);
+    } else { date = DateTime.now(); }
     green = tokens['green'] ?? 0;
     yellow = tokens['yellow'] ?? 0;
     orange = tokens['orange'] ?? 0;
@@ -29,6 +31,7 @@ class Session {
   @override
   String toString() {
     return jsonEncode({
+      'date': date.toString(),
       'green': green,
       'yellow': yellow,
       'orange': orange,
@@ -40,13 +43,13 @@ class Session {
     });
   }
 
-  String getDate() {
-    return date;
-  }
+  DateTime getDate() { return date; }
+  String getDateString() { return date.toString().split(' ')[0]; }
+  void setDate(DateTime newDate) { date = newDate;}
 
   int getGreen() { return green; }
   void addGreen() { green += 1; }
-  void removeGreen() { if (green > 0) yellow -= 1; }
+  void removeGreen() { if (green > 0) green -= 1; }
 
   int getYellow() { return yellow; }
   void addYellow() { yellow += 1; }
@@ -70,9 +73,9 @@ class Session {
   
   int getPink() { return pink; }
   void addPink() { pink += 1; }
-  void removePink() { if (pink > 0) purple -= 1; }
+  void removePink() { if (pink > 0) pink -= 1; }
   
   int getGrey() { return grey; }
   void addGrey() { grey += 1; }
-  void removeGrey() { if (grey > 0) purple -= 1; }
+  void removeGrey() { if (grey > 0) grey -= 1; }
 }

@@ -1,8 +1,6 @@
+import 'package:climb_tracker/models/colors.dart';
 import 'package:climb_tracker/pages/list_page.dart';
 import 'package:flutter/material.dart';
-
-// TODO:
-// - move all the colors into the theme (https://stackoverflow.com/questions/72089248/flutter-add-custom-color-to-existing-theme)
 
 void main() {
   runApp(const MyApp());
@@ -17,12 +15,32 @@ class MyApp extends StatelessWidget {
       title: 'Climb Tracker',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.purple,
-        scaffoldBackgroundColor: const Color.fromARGB(255, 36, 36, 36),
-        dividerColor: Colors.purple,
-        cardTheme: const CardTheme(
-          color: Color.fromARGB(255, 56, 56, 56),
-          shadowColor: Colors.purple,
+        primaryColor: lightTheme,
+        scaffoldBackgroundColor: darkGrey,
+        dividerColor: darkTheme,
+        appBarTheme: AppBarTheme(
+          foregroundColor: Colors.white,
+          backgroundColor: darkTheme,
+        ),
+        cardTheme: CardTheme(
+          color: lightGrey,
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+          enabledBorder: UnderlineInputBorder(borderSide: BorderSide(color: lightTheme)),
+          focusedBorder: UnderlineInputBorder(borderSide: BorderSide(color: lightTheme)),
+          outlineBorder: BorderSide(color: lightTheme),
+          fillColor: offWhite,
+          filled: true,
+          labelStyle: TextStyle(color: darkGrey),
+          hintStyle: TextStyle(color: darkGrey),
+        ),
+        dialogTheme: const DialogTheme(),
+        datePickerTheme: DatePickerThemeData(
+          headerForegroundColor: offWhite,
+          headerBackgroundColor: lightTheme,
+          backgroundColor: darkGrey,
+          dividerColor: lightTheme,
+          todayForegroundColor: WidgetStatePropertyAll<Color>(offWhite),
         ),
       ),
       home: const ListPage(title: 'Climb Tracker'),

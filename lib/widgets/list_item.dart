@@ -2,7 +2,8 @@ import 'package:climb_tracker/models/session.dart';
 import 'package:flutter/material.dart';
 
 class ListItem extends StatelessWidget {
-  const ListItem(this.session, {Key? key}) : super(key: key);
+  const ListItem(this.index, this.session, {Key? key}) : super(key: key);
+  final int index;
   final Session session;
 
   @override
@@ -16,7 +17,7 @@ class ListItem extends StatelessWidget {
             SizedBox(
               width: 115.0,
               child: Text(
-                session.getDate(),
+                session.getDateString(),
                 style: const TextStyle(color: Color.fromARGB(255, 226, 226, 226), fontSize: 20.0),
               ),
             ),
