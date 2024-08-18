@@ -8,7 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 // TODO:
 // - go to another page with stats for that session when you click a list item
-// -- have an edit button on that page that brings up the edit menu dialog
+// -- done but need to refresh list here when they nav back (currently passing a refresh callback function that isn't working)
 
 class ListPage extends StatefulWidget {
   const ListPage({super.key, required this.title});
@@ -41,11 +41,14 @@ class _ListPageState extends State<ListPage> {
     prefs.clear();
   }
 
+  void refreshList() {
+    _sessions = _loadHistory();
+  }
+
   @override
   void initState() {
     super.initState();
-    // clearStorage();
-    _sessions = _loadHistory();
+    refreshList();
   }
 
   @override
@@ -68,7 +71,7 @@ class _ListPageState extends State<ListPage> {
             onPressed: () {
               showDialog<String>(
                 context: context,
-                builder: (BuildContext context) => EditMenu(0, Session()),
+                builder: (BuildContext context) => EditMenu(Session()),
               ).then((value) {
                 setState(() {
                   _sessions = _loadHistory();
@@ -78,11 +81,11 @@ class _ListPageState extends State<ListPage> {
           ),
           IconButton(
             icon: const Icon(Icons.bar_chart_rounded),
-            onPressed: () => {
+            onPressed: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const StatsPage())
-              )
+              );
             },
           )
         ],
@@ -102,7 +105,7 @@ class _ListPageState extends State<ListPage> {
                     },
                     itemBuilder: (BuildContext context, int index) {
                       final session = days[index];
-                      return ListItem(index, session);
+                      return ListItem(session, () => refreshList());
                     },
                   );
                 } else {

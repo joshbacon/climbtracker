@@ -4,9 +4,8 @@ import 'package:climb_tracker/models/session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class EditMenu extends StatefulWidget {
-  const EditMenu(this.index, this.session, {Key? key}) : super(key: key);
+  const EditMenu(this.session, {Key? key}) : super(key: key);
 
-  final int index;
   final Session session;
 
   @override
@@ -27,7 +26,7 @@ class _EditMenuState extends State<EditMenu> {
       context: context,
       firstDate: DateTime(2023, 5, 9),
       lastDate: DateTime.now(),
-      initialDate: DateTime.now(),
+      initialDate: widget.session.date,
       helpText: '',
       errorFormatText: 'Enter valid date',
       errorInvalidText: 'Enter date in valid range',

@@ -22,6 +22,16 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
           backgroundColor: darkTheme,
         ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            foregroundColor: WidgetStatePropertyAll<Color>(lightTheme),
+            iconColor:  WidgetStatePropertyAll<Color>(lightTheme),
+            overlayColor: WidgetStatePropertyAll<Color>(lightTheme.withAlpha(100)),
+            side: WidgetStatePropertyAll<BorderSide>(BorderSide(color: lightTheme)),
+            shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+            padding: const WidgetStatePropertyAll<EdgeInsets>(EdgeInsets.symmetric(vertical: 2.0, horizontal: 50.0)),
+          )
+        ),
         cardTheme: CardTheme(
           color: lightGrey,
         ),

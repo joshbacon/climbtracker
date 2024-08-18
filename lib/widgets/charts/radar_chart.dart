@@ -7,7 +7,7 @@ class Radar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.maxFinite,
+      width: 200.0,
       height: 200.0,
       child: RadarChart(
         RadarChartData(
