@@ -1,19 +1,16 @@
-import 'package:climb_tracker/widgets/charts/pie_chart.dart';
-import 'package:climb_tracker/widgets/charts/radar_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:climb_tracker/models/session.dart';
+import 'package:climb_tracker/widgets/charts/pie_chart_legend.dart';
+import 'package:climb_tracker/widgets/charts/line_chart.dart';
 
 // TODO:
-// - use the fl_chart library (https://pub.dev/packages/fl_chart)
-// - add a date filter (limit from earliest entered date to today)
-
-// - pie chart for distribution
-// - also radar chart for this
-// - number of each color over time:
-// -- line chart
-// -- scatter chart
+// - add more graphs
+// - have it show a note if there are no sessions entered yet (like list page)
 
 class StatsPage extends StatelessWidget {
-  const StatsPage({Key? key}) : super(key: key);
+  const StatsPage(this.sessions, {Key? key}) : super(key: key);
+
+  final List<Session> sessions;
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +18,25 @@ class StatsPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Stats"),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(8.0),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: Center(
           child: Column(
             children: [
-              Pie(),
-              Radar()
+              Center(
+                child: PieLegend(
+                  sessions.fold<int>(0, (prev, session) => prev + session.getGreen()),
+                  sessions.fold<int>(0, (prev, session) => prev + session.getYellow()),
+                  sessions.fold<int>(0, (prev, session) => prev + session.getOrange()),
+                  sessions.fold<int>(0, (prev, session) => prev + session.getBlue()),
+                  sessions.fold<int>(0, (prev, session) => prev + session.getRed()),
+                  sessions.fold<int>(0, (prev, session) => prev + session.getPurple()),
+                  sessions.fold<int>(0, (prev, session) => prev + session.getPink()),
+                  sessions.fold<int>(0, (prev, session) => prev + session.getGrey()),
+                ),
+              ),
+              const SizedBox(height: 10.0),
+              Center(child: Line(sessions)),
             ],
           ),
         ),

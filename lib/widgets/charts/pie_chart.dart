@@ -3,7 +3,26 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 
 class Pie extends StatelessWidget {
-  const Pie({Key? key}) : super(key: key);
+  const Pie(
+    this.numGreen,
+    this.numYellow,
+    this.numOrange,
+    this.numBlue,
+    this.numRed,
+    this.numPurple,
+    this.numPink,
+    this.numGrey,
+    {Key? key}
+  ) : super(key: key);
+
+  final int numGreen;
+  final int numYellow;
+  final int numOrange;
+  final int numBlue;
+  final int numRed;
+  final int numPurple;
+  final int numPink;
+  final int numGrey;
 
   @override
   Widget build(BuildContext context) {
@@ -13,45 +32,46 @@ class Pie extends StatelessWidget {
       child: PieChart(
         PieChartData(
           centerSpaceRadius: 40.0,
+          startDegreeOffset: 180.0,
           sections: [
             PieChartSectionData(
-              title: 'green',
-              value: 10,
+              title: '',
+              value: numGreen.toDouble(),
               color: green,
             ),
             PieChartSectionData(
-              title: 'yellow',
-              value: 10.0,
+              title: '',
+              value: numYellow.toDouble(),
               color: yellow,
             ),
             PieChartSectionData(
-              title: 'orange',
-              value: 10.0,
+              title: '',
+              value: numOrange.toDouble(),
               color: orange,
             ),
             PieChartSectionData(
-              title: 'blue',
-              value: 10.0,
+              title: '',
+              value: numBlue.toDouble(),
               color: blue,
             ),
             PieChartSectionData(
-              title: 'red',
-              value: 10.0,
+              title: '',
+              value: numRed.toDouble(),
               color: red,
             ),
             PieChartSectionData(
-              title: 'purple',
-              value: 10.0,
+              title: '',
+              value: numPurple.toDouble(),
               color: purple,
             ),
             PieChartSectionData(
-              title: 'pink',
-              value: 10.0,
+              title: '',
+              value: numPink.toDouble(),
               color: pink,
             ),
             PieChartSectionData(
-              title: 'grey',
-              value: 10.0,
+              title: '',
+              value: numGrey.toDouble(),
               color: grey,
             ),
           ]

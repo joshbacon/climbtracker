@@ -1,9 +1,16 @@
+import 'dart:async';
 import 'package:climb_tracker/widgets/charts/pie_chart.dart';
-import 'package:climb_tracker/widgets/charts/radar_chart.dart';
+import 'package:climb_tracker/widgets/charts/scatter_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:climb_tracker/models/colors.dart';
 import 'package:climb_tracker/models/session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+// TODO:
+// - figure out how to update the date properly
+// -- right now it makes a copy of the session on the same date, either:
+// --- update _saveSession to use an id or something (should probably have this anyway?)
+// --- or, leave _saveSession making it's copy but then delete the original (seems silly... right?... just do option 1)
 
 class SessionPage extends StatefulWidget {
   const SessionPage(this.session, {Key? key}) : super(key: key);
@@ -16,40 +23,64 @@ class SessionPage extends StatefulWidget {
 
 class _SessionPageState extends State<SessionPage> {
 
-  void _saveDay() async {
+  bool showingSaved = false;
+  Timer? setShowing;
+
+  void save() {
+    setState(() {
+      showingSaved = true;
+    });
+    _saveSession();
+    setShowing = Timer(
+      const Duration(seconds: 1),
+      () {
+        setState(() {
+          showingSaved = false;
+        });
+      }
+    );
+  }
+
+  void _saveSession() async {
     try {
       final prefs = await SharedPreferences.getInstance();
       prefs.setString(widget.session.getDate().toString(), widget.session.toString());
     } finally {}
   }
 
-  void _updateDate(BuildContext context) async {
-    DateTime? selected = await showDatePicker(
-      context: context,
-      firstDate: DateTime(2023, 5, 9),
-      lastDate: DateTime.now(),
-      initialDate: widget.session.date,
-      helpText: '',
-      errorFormatText: 'Enter valid date',
-      errorInvalidText: 'Enter date in valid range',
-      builder:(context, child) {
-        return Theme(
-          data: Theme.of(context).copyWith(
-            colorScheme: ColorScheme.dark(
-              primary: darkTheme,
-              onSurface: lightTheme,
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
+  // void _updateDate(BuildContext context) async {
+  //   DateTime? selected = await showDatePicker(
+  //     context: context,
+  //     firstDate: DateTime(2023, 5, 9),
+  //     lastDate: DateTime.now(),
+  //     initialDate: widget.session.date,
+  //     helpText: '',
+  //     errorFormatText: 'Enter valid date',
+  //     errorInvalidText: 'Enter date in valid range',
+  //     builder:(context, child) {
+  //       return Theme(
+  //         data: Theme.of(context).copyWith(
+  //           colorScheme: ColorScheme.dark(
+  //             primary: darkTheme,
+  //             onSurface: lightTheme,
+  //           ),
+  //         ),
+  //         child: child!,
+  //       );
+  //     },
+  //   );
 
-    if (selected != null) {
-      setState(() {
-        widget.session.setDate(selected);
-      });
-    }
+  //   if (selected != null) {
+  //     setState(() {
+  //       widget.session.setDate(selected);
+  //     });
+  //   }
+  // }
+
+  @override
+  void dispose() {
+    setShowing?.cancel();
+    super.dispose();
   }
 
   @override
@@ -73,18 +104,37 @@ class _SessionPageState extends State<SessionPage> {
         padding: const EdgeInsets.symmetric(vertical: 8.0),
         child: Column(
           children: [
-            const SizedBox(
+            SizedBox(
               width: double.maxFinite,
-              height: 300.0,
+              height: 350.0,
               child: Stack(
                 children: [
                   Align(
                     alignment: Alignment.topLeft,
-                    child: Pie(),
+                    child: Pie(
+                      widget.session.getGreen(),
+                      widget.session.getYellow(),
+                      widget.session.getOrange(),
+                      widget.session.getBlue(),
+                      widget.session.getRed(),
+                      widget.session.getPurple(),
+                      widget.session.getPink(),
+                      widget.session.getGrey(),
+                    ),
                   ),
-                  Align(
-                    alignment: Alignment.bottomRight,
-                    child: Radar(),
+                  Positioned(
+                    bottom: 20.0,
+                    right: 20.0,
+                    child: Scatter(
+                      widget.session.getGreen(),
+                      widget.session.getYellow(),
+                      widget.session.getOrange(),
+                      widget.session.getBlue(),
+                      widget.session.getRed(),
+                      widget.session.getPurple(),
+                      widget.session.getPink(),
+                      widget.session.getGrey(),
+                    ),
                   ),
                 ],
               ),
@@ -105,7 +155,7 @@ class _SessionPageState extends State<SessionPage> {
                   alignment: WrapAlignment.center,
                   children: [
                     SizedBox(
-                      width: 105.5,
+                      width: 113,
                       child: Row(
                         children: [
                           IconButton(
@@ -116,7 +166,7 @@ class _SessionPageState extends State<SessionPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 57.5,
+                            width: 65,
                             child: ElevatedButton(
                               onPressed: () {setState(() {widget.session.addGreen();});},
                               style: ButtonStyle(
@@ -131,7 +181,7 @@ class _SessionPageState extends State<SessionPage> {
                     ),
 
                     SizedBox(
-                      width: 105.5,
+                      width: 113,
                       child: Row(
                         children: [
                           IconButton(
@@ -142,7 +192,7 @@ class _SessionPageState extends State<SessionPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 57.5,
+                            width: 65,
                             child: ElevatedButton(
                               onPressed: () {setState(() {widget.session.addYellow();});},
                               style: ButtonStyle(
@@ -157,7 +207,7 @@ class _SessionPageState extends State<SessionPage> {
                     ),
 
                     SizedBox(
-                      width: 105.5,
+                      width: 113,
                       child: Row(
                         children: [
                           IconButton(
@@ -168,7 +218,7 @@ class _SessionPageState extends State<SessionPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 57.5,
+                            width: 65,
                             child: ElevatedButton(
                               onPressed: () {setState(() {widget.session.addOrange();});},
                               style: ButtonStyle(
@@ -183,7 +233,7 @@ class _SessionPageState extends State<SessionPage> {
                     ),
 
                     SizedBox(
-                      width: 105.5,
+                      width: 113,
                       child: Row(
                         children: [
                           IconButton(
@@ -194,7 +244,7 @@ class _SessionPageState extends State<SessionPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 57.5,
+                            width: 65,
                             child: ElevatedButton(
                               onPressed: () {setState(() {widget.session.addBlue();});},
                               style: ButtonStyle(
@@ -209,7 +259,7 @@ class _SessionPageState extends State<SessionPage> {
                     ),
 
                     SizedBox(
-                      width: 105.5,
+                      width: 113,
                       child: Row(
                         children: [
                           IconButton(
@@ -220,7 +270,7 @@ class _SessionPageState extends State<SessionPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 57.5,
+                            width: 65,
                             child: ElevatedButton(
                               onPressed: () {setState(() {widget.session.addRed();});},
                               style: ButtonStyle(
@@ -235,7 +285,7 @@ class _SessionPageState extends State<SessionPage> {
                     ),
 
                     SizedBox(
-                      width: 105.5,
+                      width: 113,
                       child: Row(
                         children: [
                           IconButton(
@@ -246,7 +296,7 @@ class _SessionPageState extends State<SessionPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 57.5,
+                            width: 65,
                             child: ElevatedButton(
                               onPressed: () {setState(() {widget.session.addPurple();});},
                               style: ButtonStyle(
@@ -261,7 +311,7 @@ class _SessionPageState extends State<SessionPage> {
                     ),
 
                     SizedBox(
-                      width: 105.5,
+                      width: 113,
                       child: Row(
                         children: [
                           IconButton(
@@ -272,7 +322,7 @@ class _SessionPageState extends State<SessionPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 57.5,
+                            width: 65,
                             child: ElevatedButton(
                               onPressed: () {setState(() {widget.session.addPink();});},
                               style: ButtonStyle(
@@ -287,7 +337,7 @@ class _SessionPageState extends State<SessionPage> {
                     ),
 
                     SizedBox(
-                      width: 105.5,
+                      width: 113,
                       child: Row(
                         children: [
                           IconButton(
@@ -298,7 +348,7 @@ class _SessionPageState extends State<SessionPage> {
                             ),
                           ),
                           SizedBox(
-                            width: 57.5,
+                            width: 65,
                             child: ElevatedButton(
                               onPressed: () {setState(() {widget.session.addGrey();});},
                               style: ButtonStyle(
@@ -314,11 +364,23 @@ class _SessionPageState extends State<SessionPage> {
                   ],
                 ),
                 const SizedBox(height: 5.0),
-                OutlinedButton.icon(
-                  icon: const Icon(Icons.save_rounded),
-                  label: const Text('Save'),
-                  onPressed: () { _saveDay(); },
-                )
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    AnimatedPositioned(
+                      top: 5.0,
+                      left: showingSaved ? -45.0 : 5.0,
+                      curve: Curves.easeOutBack,
+                      duration: const Duration(seconds: 1),
+                      child: Icon(Icons.check_circle_outline_rounded, color: lightTheme, size: 36.0,)
+                    ),
+                    OutlinedButton.icon(
+                      icon: const Icon(Icons.save_rounded),
+                      label: const Text('Save'),
+                      onPressed: save,
+                    ),
+                  ],
+                ),
               ]
             )
           ],

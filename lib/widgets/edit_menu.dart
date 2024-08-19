@@ -85,7 +85,7 @@ class _EditMenuState extends State<EditMenu> {
                       alignment: WrapAlignment.center,
                       children: [
                         SizedBox(
-                          width: 105.5,
+                          width: 113,
                           child: Row(
                             children: [
                               IconButton(
@@ -96,7 +96,7 @@ class _EditMenuState extends State<EditMenu> {
                                 ),
                               ),
                               SizedBox(
-                                width: 57.5,
+                                width: 65,
                                 child: ElevatedButton(
                                   onPressed: () {setState(() {widget.session.addGreen();});},
                                   style: ButtonStyle(
@@ -111,7 +111,7 @@ class _EditMenuState extends State<EditMenu> {
                         ),
 
                         SizedBox(
-                          width: 105.5,
+                          width: 113,
                           child: Row(
                             children: [
                               IconButton(
@@ -122,7 +122,7 @@ class _EditMenuState extends State<EditMenu> {
                                 ),
                               ),
                               SizedBox(
-                                width: 57.5,
+                                width: 65,
                                 child: ElevatedButton(
                                   onPressed: () {setState(() {widget.session.addYellow();});},
                                   style: ButtonStyle(
@@ -137,7 +137,7 @@ class _EditMenuState extends State<EditMenu> {
                         ),
 
                         SizedBox(
-                          width: 105.5,
+                          width: 113,
                           child: Row(
                             children: [
                               IconButton(
@@ -148,7 +148,7 @@ class _EditMenuState extends State<EditMenu> {
                                 ),
                               ),
                               SizedBox(
-                                width: 57.5,
+                                width: 65,
                                 child: ElevatedButton(
                                   onPressed: () {setState(() {widget.session.addOrange();});},
                                   style: ButtonStyle(
@@ -163,7 +163,7 @@ class _EditMenuState extends State<EditMenu> {
                         ),
 
                         SizedBox(
-                          width: 105.5,
+                          width: 113,
                           child: Row(
                             children: [
                               IconButton(
@@ -174,7 +174,7 @@ class _EditMenuState extends State<EditMenu> {
                                 ),
                               ),
                               SizedBox(
-                                width: 57.5,
+                                width: 65,
                                 child: ElevatedButton(
                                   onPressed: () {setState(() {widget.session.addBlue();});},
                                   style: ButtonStyle(
@@ -189,7 +189,7 @@ class _EditMenuState extends State<EditMenu> {
                         ),
 
                         SizedBox(
-                          width: 105.5,
+                          width: 113,
                           child: Row(
                             children: [
                               IconButton(
@@ -200,7 +200,7 @@ class _EditMenuState extends State<EditMenu> {
                                 ),
                               ),
                               SizedBox(
-                                width: 57.5,
+                                width: 65,
                                 child: ElevatedButton(
                                   onPressed: () {setState(() {widget.session.addRed();});},
                                   style: ButtonStyle(
@@ -215,7 +215,7 @@ class _EditMenuState extends State<EditMenu> {
                         ),
 
                         SizedBox(
-                          width: 105.5,
+                          width: 113,
                           child: Row(
                             children: [
                               IconButton(
@@ -226,7 +226,7 @@ class _EditMenuState extends State<EditMenu> {
                                 ),
                               ),
                               SizedBox(
-                                width: 57.5,
+                                width: 65,
                                 child: ElevatedButton(
                                   onPressed: () {setState(() {widget.session.addPurple();});},
                                   style: ButtonStyle(
@@ -241,7 +241,7 @@ class _EditMenuState extends State<EditMenu> {
                         ),
 
                         SizedBox(
-                          width: 105.5,
+                          width: 113,
                           child: Row(
                             children: [
                               IconButton(
@@ -252,7 +252,7 @@ class _EditMenuState extends State<EditMenu> {
                                 ),
                               ),
                               SizedBox(
-                                width: 57.5,
+                                width: 65,
                                 child: ElevatedButton(
                                   onPressed: () {setState(() {widget.session.addPink();});},
                                   style: ButtonStyle(
@@ -267,7 +267,7 @@ class _EditMenuState extends State<EditMenu> {
                         ),
 
                         SizedBox(
-                          width: 105.5,
+                          width: 113,
                           child: Row(
                             children: [
                               IconButton(
@@ -278,7 +278,7 @@ class _EditMenuState extends State<EditMenu> {
                                 ),
                               ),
                               SizedBox(
-                                width: 57.5,
+                                width: 65,
                                 child: ElevatedButton(
                                   onPressed: () {setState(() {widget.session.addGrey();});},
                                   style: ButtonStyle(

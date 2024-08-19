@@ -25,6 +25,7 @@ class MyApp extends StatelessWidget {
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
             foregroundColor: WidgetStatePropertyAll<Color>(lightTheme),
+            backgroundColor: WidgetStatePropertyAll<Color>(darkGrey),
             iconColor:  WidgetStatePropertyAll<Color>(lightTheme),
             overlayColor: WidgetStatePropertyAll<Color>(lightTheme.withAlpha(100)),
             side: WidgetStatePropertyAll<BorderSide>(BorderSide(color: lightTheme)),

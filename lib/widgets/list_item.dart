@@ -5,7 +5,7 @@ import 'package:climb_tracker/pages/session_page.dart';
 class ListItem extends StatelessWidget {
   const ListItem(this.session, this.callback, {Key? key}) : super(key: key);
   final Session session;
-  final Function callback;
+  final VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class ListItem extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(builder: (context) => SessionPage(session))
-        ).then((value) {
+        ).then((_) {
           callback();
         });
       },

@@ -6,10 +6,6 @@ import 'package:climb_tracker/widgets/edit_menu.dart';
 import 'package:climb_tracker/widgets/list_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// TODO:
-// - go to another page with stats for that session when you click a list item
-// -- done but need to refresh list here when they nav back (currently passing a refresh callback function that isn't working)
-
 class ListPage extends StatefulWidget {
   const ListPage({super.key, required this.title});
   final String title;
@@ -21,6 +17,7 @@ class ListPage extends StatefulWidget {
 class _ListPageState extends State<ListPage> {
 
   late Future<List<Session>> _sessions;
+  List<Session> _statsList = [];
 
   Future<List<Session>> _loadHistory() async{
     List<Session> data = [];
@@ -33,6 +30,7 @@ class _ListPageState extends State<ListPage> {
     }
 
     data.sort((a, b) => a.getDate().compareTo(b.getDate()));
+    _statsList = data.toList();
     return data.reversed.toList();
   }
 
@@ -42,13 +40,15 @@ class _ListPageState extends State<ListPage> {
   }
 
   void refreshList() {
-    _sessions = _loadHistory();
+    setState(() {
+      _sessions = _loadHistory();
+    });
   }
 
   @override
   void initState() {
-    super.initState();
     refreshList();
+    super.initState();
   }
 
   @override
@@ -72,10 +72,8 @@ class _ListPageState extends State<ListPage> {
               showDialog<String>(
                 context: context,
                 builder: (BuildContext context) => EditMenu(Session()),
-              ).then((value) {
-                setState(() {
-                  _sessions = _loadHistory();
-                });
+              ).then((_) {
+                refreshList();
               });
             },
           ),
@@ -84,7 +82,7 @@ class _ListPageState extends State<ListPage> {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const StatsPage())
+                MaterialPageRoute(builder: (context) => StatsPage(_statsList)),
               );
             },
           )
@@ -105,7 +103,7 @@ class _ListPageState extends State<ListPage> {
                     },
                     itemBuilder: (BuildContext context, int index) {
                       final session = days[index];
-                      return ListItem(session, () => refreshList());
+                      return ListItem(session, refreshList);
                     },
                   );
                 } else {
