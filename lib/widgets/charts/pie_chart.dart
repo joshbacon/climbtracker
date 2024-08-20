@@ -31,7 +31,7 @@ class Pie extends StatelessWidget {
       height: 200.0,
       child: PieChart(
         PieChartData(
-          centerSpaceRadius: 40.0,
+          centerSpaceRadius: 35.0,
           startDegreeOffset: 180.0,
           sections: [
             PieChartSectionData(

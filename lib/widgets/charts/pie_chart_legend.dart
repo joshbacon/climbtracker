@@ -26,83 +26,92 @@ class PieLegend extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 250.0,
-      height: 200.0,
-      child: Row(
-        children: [
-          Pie(
-            numGreen,
-            numYellow,
-            numOrange,
-            numBlue,
-            numRed,
-            numPurple,
-            numPink,
-            numGrey,
+    return ClipRRect(
+      borderRadius: const BorderRadius.all(Radius.circular(8.0)),
+      child: Container(
+        color: lightGrey,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+          child: SizedBox(
+            width: 250.0,
+            height: 200.0,
+            child: Row(
+              children: [
+                Pie(
+                  numGreen,
+                  numYellow,
+                  numOrange,
+                  numBlue,
+                  numRed,
+                  numPurple,
+                  numPink,
+                  numGrey,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Icon(Icons.square_rounded, color: green),
+                        const SizedBox(width: 5.0),
+                        Text(numGreen.toString(), style: TextStyle(color: offWhite)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.square_rounded, color: yellow),
+                        const SizedBox(width: 5.0),
+                        Text(numYellow.toString(), style: TextStyle(color: offWhite)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.square_rounded, color: orange),
+                        const SizedBox(width: 5.0),
+                        Text(numOrange.toString(), style: TextStyle(color: offWhite)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.square_rounded, color: blue),
+                        const SizedBox(width: 5.0),
+                        Text(numBlue.toString(), style: TextStyle(color: offWhite)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.square_rounded, color: red),
+                        const SizedBox(width: 5.0),
+                        Text(numRed.toString(), style: TextStyle(color: offWhite)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.square_rounded, color: purple),
+                        const SizedBox(width: 5.0),
+                        Text(numPurple.toString(), style: TextStyle(color: offWhite)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.square_rounded, color: pink),
+                        const SizedBox(width: 5.0),
+                        Text(numPink.toString(), style: TextStyle(color: offWhite)),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Icon(Icons.square_rounded, color: grey),
+                        const SizedBox(width: 5.0),
+                        Text(numGrey.toString(), style: TextStyle(color: offWhite)),
+                      ],
+                    ),
+                  ],
+                )
+              ],
+            ),
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Icon(Icons.square_rounded, color: green),
-                  const SizedBox(width: 5.0),
-                  Text(numGreen.toString(), style: TextStyle(color: offWhite)),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.square_rounded, color: yellow),
-                  const SizedBox(width: 5.0),
-                  Text(numYellow.toString(), style: TextStyle(color: offWhite)),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.square_rounded, color: orange),
-                  const SizedBox(width: 5.0),
-                  Text(numOrange.toString(), style: TextStyle(color: offWhite)),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.square_rounded, color: blue),
-                  const SizedBox(width: 5.0),
-                  Text(numBlue.toString(), style: TextStyle(color: offWhite)),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.square_rounded, color: red),
-                  const SizedBox(width: 5.0),
-                  Text(numRed.toString(), style: TextStyle(color: offWhite)),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.square_rounded, color: purple),
-                  const SizedBox(width: 5.0),
-                  Text(numPurple.toString(), style: TextStyle(color: offWhite)),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.square_rounded, color: pink),
-                  const SizedBox(width: 5.0),
-                  Text(numPink.toString(), style: TextStyle(color: offWhite)),
-                ],
-              ),
-              Row(
-                children: [
-                  Icon(Icons.square_rounded, color: grey),
-                  const SizedBox(width: 5.0),
-                  Text(numGrey.toString(), style: TextStyle(color: offWhite)),
-                ],
-              ),
-            ],
-          )
-        ],
+        ),
       ),
     );
   }

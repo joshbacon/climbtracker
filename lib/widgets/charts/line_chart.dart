@@ -9,10 +9,12 @@ import 'package:fl_chart/fl_chart.dart';
 class Line extends StatelessWidget {
   const Line(
     this.sessions,
+    this.colorFilters,
     {Key? key}) : super(key: key
   );
 
   final List<Session> sessions;
+  final List<bool> colorFilters;
 
   @override
   Widget build(BuildContext context) {
@@ -49,58 +51,58 @@ class Line extends StatelessWidget {
             LineChartBarData(
               isCurved: true,
               color: green,
-              spots: sessions.indexed.map<FlSpot>(
+              spots: colorFilters[0] ? sessions.indexed.map<FlSpot>(
                 (value) => FlSpot(value.$1.toDouble(), value.$2.getGreen().toDouble())
-              ).toList(),
+              ).toList() : [],
             ),
             LineChartBarData(
               isCurved: true,
               color: yellow,
-              spots: sessions.indexed.map<FlSpot>(
+              spots: colorFilters[1] ? sessions.indexed.map<FlSpot>(
                 (value) => FlSpot(value.$1.toDouble(), value.$2.getYellow().toDouble())
-              ).toList(),
+              ).toList() : [],
             ),
             LineChartBarData(
               isCurved: true,
               color: orange,
-              spots: sessions.indexed.map<FlSpot>(
+              spots: colorFilters[2] ? sessions.indexed.map<FlSpot>(
                 (value) => FlSpot(value.$1.toDouble(), value.$2.getOrange().toDouble())
-              ).toList(),
+              ).toList() : [],
             ),
             LineChartBarData(
               isCurved: true,
               color: blue,
-              spots: sessions.indexed.map<FlSpot>(
+              spots: colorFilters[3] ? sessions.indexed.map<FlSpot>(
                 (value) => FlSpot(value.$1.toDouble(), value.$2.getBlue().toDouble())
-              ).toList(),
+              ).toList() : [],
             ),
             LineChartBarData(
               isCurved: true,
               color: red,
-              spots: sessions.indexed.map<FlSpot>(
+              spots: colorFilters[4] ? sessions.indexed.map<FlSpot>(
                 (value) => FlSpot(value.$1.toDouble(), value.$2.getRed().toDouble())
-              ).toList(),
+              ).toList() : [],
             ),
             LineChartBarData(
               isCurved: true,
               color: purple,
-              spots: sessions.indexed.map<FlSpot>(
+              spots: colorFilters[5] ? sessions.indexed.map<FlSpot>(
                 (value) => FlSpot(value.$1.toDouble(), value.$2.getPurple().toDouble())
-              ).toList(),
+              ).toList() : [],
             ),
             LineChartBarData(
               isCurved: true,
               color: pink,
-              spots: sessions.indexed.map<FlSpot>(
+              spots: colorFilters[6] ? sessions.indexed.map<FlSpot>(
                 (value) => FlSpot(value.$1.toDouble(), value.$2.getPink().toDouble())
-              ).toList(),
+              ).toList() : [],
             ),
             LineChartBarData(
               isCurved: true,
               color: grey,
-              spots: sessions.indexed.map<FlSpot>(
+              spots: colorFilters[7] ? sessions.indexed.map<FlSpot>(
                 (value) => FlSpot(value.$1.toDouble(), value.$2.getGrey().toDouble())
-              ).toList(),
+              ).toList() : [],
             ),
           ]
         ),

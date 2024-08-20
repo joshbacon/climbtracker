@@ -22,6 +22,22 @@ class MyApp extends StatelessWidget {
           foregroundColor: Colors.white,
           backgroundColor: darkTheme,
         ),
+        textButtonTheme: TextButtonThemeData(
+          style: ButtonStyle(
+            overlayColor: WidgetStatePropertyAll<Color>(lightTheme.withAlpha(100)),
+            side: WidgetStatePropertyAll<BorderSide>(BorderSide(color: lightTheme)),
+            shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+            padding: const WidgetStatePropertyAll<EdgeInsets>(EdgeInsets.symmetric(vertical: 2.0, horizontal: 50.0)),
+          )
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            backgroundColor: WidgetStatePropertyAll<Color>(lightGrey),
+            overlayColor: WidgetStatePropertyAll<Color>(darkTheme.withAlpha(100)),
+            shape: WidgetStatePropertyAll(RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0))),
+            padding: const WidgetStatePropertyAll<EdgeInsets>(EdgeInsets.symmetric(vertical: 2.0, horizontal: 10.0)),
+          )
+        ),
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
             foregroundColor: WidgetStatePropertyAll<Color>(lightTheme),
@@ -51,6 +67,7 @@ class MyApp extends StatelessWidget {
           headerBackgroundColor: lightTheme,
           backgroundColor: darkGrey,
           dividerColor: lightTheme,
+          todayBorder: BorderSide(color: offWhite, width: 2.0),
           todayForegroundColor: WidgetStatePropertyAll<Color>(offWhite),
         ),
       ),
