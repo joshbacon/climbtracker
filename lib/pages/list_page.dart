@@ -34,6 +34,7 @@ class _ListPageState extends State<ListPage> {
     return data.reversed.toList();
   }
 
+  // Created for debugging, kept for future possible functionality
   void clearStorage() async {
     final prefs = await SharedPreferences.getInstance();
     prefs.clear();

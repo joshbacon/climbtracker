@@ -55,8 +55,12 @@ class _StatsPageState extends State<StatsPage> {
         } else {
           endDate = selected;
         }
+        DateTime sDate = DateTime(startDate.year, startDate.month, startDate.day);
+        DateTime eDate = DateTime(endDate.year, endDate.month, endDate.day);
         filteredSessions = widget.sessions.where((session) {
-          return session.getDate().compareTo(startDate) >= 0 && session.getDate().compareTo(endDate) <= 0;
+          DateTime date = session.getDate();
+          date = DateTime(date.year, date.month, date.day);
+          return date.compareTo(sDate) >= 0 && date.compareTo(eDate) <= 0;
         }).toList();
       });
     }

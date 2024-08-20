@@ -2,6 +2,7 @@ import 'dart:convert';
 
 class Session {
   DateTime date = DateTime.now();
+  String id = DateTime.now().toIso8601String();
   int green = 0;
   int yellow = 0;
   int orange = 0;
@@ -15,9 +16,17 @@ class Session {
 
   Session.fromString(String data) {
     var tokens = jsonDecode(data);
-    if (tokens['date'] != null){
+    if (tokens['id'] != null) {
+      id = tokens['id'];
+    } else {
+      id = DateTime.now().toIso8601String();
+    }
+    if (tokens['date'] != null)
+    {
       date = DateTime.parse(tokens['date']);
-    } else { date = DateTime.now(); }
+    } else {
+      date = DateTime.now();
+    }
     green = tokens['green'] ?? 0;
     yellow = tokens['yellow'] ?? 0;
     orange = tokens['orange'] ?? 0;
@@ -31,6 +40,7 @@ class Session {
   @override
   String toString() {
     return jsonEncode({
+      'id': id,
       'date': date.toString(),
       'green': green,
       'yellow': yellow,
@@ -42,6 +52,8 @@ class Session {
       'grey': grey
     });
   }
+
+  String getId() { return id; }
 
   DateTime getDate() { return date; }
   String getDateString() { return date.toString().split(' ')[0]; }

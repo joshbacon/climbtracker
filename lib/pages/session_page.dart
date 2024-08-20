@@ -44,42 +44,43 @@ class _SessionPageState extends State<SessionPage> {
   void _saveSession() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString(widget.session.getDate().toString(), widget.session.toString());
+      prefs.setString(widget.session.getId(), widget.session.toString());
     } finally {}
   }
 
-  // void _updateDate(BuildContext context) async {
-  //   DateTime? selected = await showDatePicker(
-  //     context: context,
-  //     firstDate: DateTime(2023, 5, 9),
-  //     lastDate: DateTime.now(),
-  //     initialDate: widget.session.date,
-  //     helpText: '',
-  //     errorFormatText: 'Enter valid date',
-  //     errorInvalidText: 'Enter date in valid range',
-  //     builder:(context, child) {
-  //       return Theme(
-  //         data: Theme.of(context).copyWith(
-  //           colorScheme: ColorScheme.dark(
-  //             primary: darkTheme,
-  //             onSurface: lightTheme,
-  //           ),
-  //         ),
-  //         child: child!,
-  //       );
-  //     },
-  //   );
+  void _updateDate(BuildContext context) async {
+    DateTime? selected = await showDatePicker(
+      context: context,
+      firstDate: DateTime(2023, 5, 9),
+      lastDate: DateTime.now(),
+      initialDate: widget.session.date,
+      helpText: '',
+      errorFormatText: 'Enter valid date',
+      errorInvalidText: 'Enter date in valid range',
+      builder:(context, child) {
+        return Theme(
+          data: Theme.of(context).copyWith(
+            colorScheme: ColorScheme.dark(
+              primary: darkTheme,
+              onSurface: lightTheme,
+            ),
+          ),
+          child: child!,
+        );
+      },
+    );
 
-  //   if (selected != null) {
-  //     setState(() {
-  //       widget.session.setDate(selected);
-  //     });
-  //   }
-  // }
+    if (selected != null) {
+      setState(() {
+        widget.session.setDate(selected);
+      });
+    }
+  }
 
   @override
   void dispose() {
     setShowing?.cancel();
+    print(widget.session.toString());
     super.dispose();
   }
 
@@ -90,13 +91,13 @@ class _SessionPageState extends State<SessionPage> {
         title: Row(
           children: [
             Text(widget.session.getDateString()),
-            // IconButton(
-            //   onPressed: () {
-            //     _updateDate(context);
-            //   },
-            //   icon: Icon(Icons.calendar_month_outlined, color: offWhite),
-            //   iconSize: 32.0,
-            // ),
+            IconButton(
+              onPressed: () {
+                _updateDate(context);
+              },
+              icon: Icon(Icons.calendar_month_outlined, color: offWhite),
+              iconSize: 32.0,
+            ),
           ],
         ),
       ),

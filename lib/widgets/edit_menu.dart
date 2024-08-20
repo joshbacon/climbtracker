@@ -17,7 +17,7 @@ class _EditMenuState extends State<EditMenu> {
   void _saveDay() async {
     try {
       final prefs = await SharedPreferences.getInstance();
-      prefs.setString(widget.session.getDate().toString(), widget.session.toString());
+      prefs.setString(widget.session.getId(), widget.session.toString());
     } finally {}
   }
 
