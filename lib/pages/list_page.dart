@@ -49,6 +49,7 @@ class _ListPageState extends State<ListPage> {
   @override
   void initState() {
     refreshList();
+    // clearStorage();
     super.initState();
   }
 
