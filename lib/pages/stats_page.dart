@@ -4,9 +4,6 @@ import 'package:climb_tracker/models/session.dart';
 import 'package:climb_tracker/widgets/charts/pie_chart_legend.dart';
 import 'package:climb_tracker/widgets/charts/line_chart.dart';
 
-// TODO:
-// - add more graphs
-
 class StatsPage extends StatefulWidget {
   const StatsPage(this.sessions, {Key? key}) : super(key: key);
 
