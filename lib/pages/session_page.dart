@@ -6,12 +6,6 @@ import 'package:climb_tracker/models/colors.dart';
 import 'package:climb_tracker/models/session.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// TODO:
-// - figure out how to update the date properly
-// -- right now it makes a copy of the session on the same date, either:
-// --- update _saveSession to use an id or something (should probably have this anyway?)
-// --- or, leave _saveSession making it's copy but then delete the original (seems silly... right?... just do option 1)
-
 class SessionPage extends StatefulWidget {
   const SessionPage(this.session, {Key? key}) : super(key: key);
 
@@ -80,7 +74,6 @@ class _SessionPageState extends State<SessionPage> {
   @override
   void dispose() {
     setShowing?.cancel();
-    print(widget.session.toString());
     super.dispose();
   }
 
