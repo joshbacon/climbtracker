@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:climb_tracker/models/grades.dart';
 import 'package:climb_tracker/widgets/charts/pie_chart.dart';
 import 'package:climb_tracker/widgets/charts/scatter_chart.dart';
 import 'package:flutter/material.dart';
@@ -103,6 +104,34 @@ class _SessionPageState extends State<SessionPage> {
               height: 350.0,
               child: Stack(
                 children: [
+                  Center(
+                    child: Align(
+                      alignment: Alignment.centerRight,
+                      child: SizedBox(
+                        width: 175.0,
+                        height: 250.0,
+                        child: Column(
+                          children: [
+                            Text(
+                              getSessionAverage(widget.session),
+                              style: TextStyle(
+                                color: offWhite,
+                                fontSize: 24.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            Text(
+                              'Avg. Grade',
+                              style: TextStyle(
+                                color: offWhite,
+                                fontSize: 16.0,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ),
+                  ),
                   Align(
                     alignment: Alignment.topLeft,
                     child: Pie(

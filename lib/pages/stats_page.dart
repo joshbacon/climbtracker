@@ -1,11 +1,9 @@
 import 'package:climb_tracker/models/colors.dart';
+import 'package:climb_tracker/models/grades.dart';
 import 'package:flutter/material.dart';
 import 'package:climb_tracker/models/session.dart';
 import 'package:climb_tracker/widgets/charts/pie_chart_legend.dart';
 import 'package:climb_tracker/widgets/charts/line_chart.dart';
-
-// TODO:
-// - add more graphs
 
 class StatsPage extends StatefulWidget {
   const StatsPage(this.sessions, {Key? key}) : super(key: key);
@@ -185,6 +183,28 @@ class _StatsPageState extends State<StatsPage> {
                 ),
                 Divider(color: lightTheme),
                 const SizedBox(height: 10.0),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      'Avg. Grade',
+                      style: TextStyle(
+                        color: offWhite,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    const SizedBox(width: 15.0),
+                    Text(
+                      getTotalAverage(filteredSessions),
+                      style: TextStyle(
+                        color: offWhite,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 15.0),
                 Center(
                   child: PieLegend(
                     _colorSelections1[0] ? filteredSessions.fold<int>(0, (prev, session) => prev + session.getGreen()) : 0,
