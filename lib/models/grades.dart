@@ -1,6 +1,6 @@
 import 'package:climb_tracker/models/session.dart';
 
-double avgGreen  =  0.0;
+double avgGreen  = -1.0;
 double avgYellow =  0.5;
 double avgOrange =  2.5;
 double avgBlue   =  4.5;
@@ -9,32 +9,14 @@ double avgPurple =  8.5;
 double avgPink   = 10.0;
 double avgGrey   =  5.0;
 
-String gradeGreen  = 'VB';
-String gradeYellow = 'V0-V1';
-String gradeOrange = 'V2-V3';
-String gradeBlue   = 'V4-V5';
-String gradeRed    = 'V6-V7';
-String gradePurple = 'V8-V9';
-String gradePink   = 'V10+';
-
 String getSessionAverage(Session session) {
 
   double newAverage = sumRouteGrades(session) / sumNumRoutes(session);
 
-  if (newAverage < avgYellow) {
-    return gradeGreen;
-  } else if (newAverage < avgOrange) {
-    return gradeYellow;
-  } else if (newAverage < avgBlue) {
-    return gradeOrange;
-  } else if (newAverage < avgRed) {
-    return gradeBlue;
-  } else if (newAverage < avgPurple) {
-    return gradeRed;
-  } else if (newAverage < avgPink) {
-    return gradePurple;
+  if (newAverage < 0.0) {
+    return 'VB';
   } else {
-    return gradePink;
+    return 'V${newAverage.round()}';
   }
 }
 
@@ -48,25 +30,12 @@ String getTotalAverage(List<Session> sessions) {
     gradeTotal += sumRouteGrades(s);
   }
 
-  print(gradeTotal);
-  print(numRoutes);
-
   double newAverage = gradeTotal / numRoutes;
 
-  if (newAverage < avgYellow) {
-    return gradeGreen;
-  } else if (newAverage < avgOrange) {
-    return gradeYellow;
-  } else if (newAverage < avgBlue) {
-    return gradeOrange;
-  } else if (newAverage < avgRed) {
-    return gradeBlue;
-  } else if (newAverage < avgPurple) {
-    return gradeRed;
-  } else if (newAverage < avgPink) {
-    return gradePurple;
+  if (newAverage < 0.0) {
+    return 'VB';
   } else {
-    return gradePink;
+    return 'V${newAverage.round()}';
   }
 }
 

@@ -3,7 +3,9 @@ import 'package:climb_tracker/models/session.dart';
 import 'package:climb_tracker/pages/session_page.dart';
 
 class ListItem extends StatelessWidget {
+  
   const ListItem(this.session, this.callback, {Key? key}) : super(key: key);
+
   final Session session;
   final VoidCallback callback;
 

@@ -1,5 +1,6 @@
 import 'package:climb_tracker/models/colors.dart';
 import 'package:climb_tracker/models/grades.dart';
+import 'package:climb_tracker/widgets/grade_legend.dart';
 import 'package:flutter/material.dart';
 import 'package:climb_tracker/models/session.dart';
 import 'package:climb_tracker/widgets/charts/pie_chart_legend.dart';
@@ -81,6 +82,17 @@ class _StatsPageState extends State<StatsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Stats"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.legend_toggle_outlined),
+            onPressed: () {
+              showDialog<String>(
+                context: context,
+                builder: (BuildContext context) => const GradeLegend(),
+              );
+            },
+          )
+        ]
       ),
       body: widget.sessions.isNotEmpty ? SingleChildScrollView(
         child: Padding(
@@ -200,6 +212,36 @@ class _StatsPageState extends State<StatsPage> {
                         color: offWhite,
                         fontSize: 24.0,
                         fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      (
+                        filteredSessions.fold<int>(0, (prev, session) => prev + session.getGreen()) +
+                        filteredSessions.fold<int>(0, (prev, session) => prev + session.getYellow()) +
+                        filteredSessions.fold<int>(0, (prev, session) => prev + session.getOrange()) +
+                        filteredSessions.fold<int>(0, (prev, session) => prev + session.getBlue()) +
+                        filteredSessions.fold<int>(0, (prev, session) => prev + session.getRed()) +
+                        filteredSessions.fold<int>(0, (prev, session) => prev + session.getPurple()) +
+                        filteredSessions.fold<int>(0, (prev, session) => prev + session.getPink()) +
+                        filteredSessions.fold<int>(0, (prev, session) => prev + session.getGrey())
+                      ).toString(),
+                      style: TextStyle(
+                        color: offWhite,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(width: 15.0),
+                    Text(
+                      'Total Routes',
+                      style: TextStyle(
+                        color: offWhite,
+                        fontSize: 16.0,
                       ),
                     ),
                   ],
