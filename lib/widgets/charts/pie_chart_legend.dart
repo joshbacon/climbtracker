@@ -33,7 +33,7 @@ class PieLegend extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
           child: SizedBox(
-            width: 250.0,
+            width: 255.0,
             height: 200.0,
             child: Row(
               children: [
